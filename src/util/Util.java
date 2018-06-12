@@ -12,33 +12,31 @@ public class Util {
   int charValue;
   int randValue;
 
-  Util(int lim, int setLim) {
+  Util(int charLim, int setLim) {
     refMain = new Main();
 
     this.charLim = lim;
     this.setLim = setLim;
 
     setMap = refMain.trainingMap;
-    alphabet = new char[62]; {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", a, A, b, B, c, C, d, D, e, E, f, F, g, G, h, H, i, I, j, J, k, K, l, L, m, M, n, N, o, O, p, P, q, Q, r, R, s, S, t, T, u, U, v, V, w, W, x, X, y, Y, z, Z}
+    alphabet = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'A', 'b', 'B', 'c', 'C', 'd', 'D', 'e', 'E', 'f', 'F', 'g', 'G' 'h', 'H', 'i', 'I', 'j', 'J', 'k', 'K', 'l', 'L', 'm', 'M', 'n', 'N', 'o', 'O', 'p', 'P', 'q', 'Q', 'r', 'R', 's', 'S', 't', 'T', 'u', 'U', 'v', 'V', 'w', 'W', 'x', 'X', 'y', 'Y', 'z', 'Z'};
   }
 
   public void setGenerator() {
-    for(int i = 0; i < setMap.length(); i++) {
-      for(int j = 1; j < setLim; j++) {
+    for(int i = 0; i < setMap.length; i++) { //for every set in the setMap
+			for(int j = 0; j < setLim; j++) { //for every string in a set
 
-        charValue = (int )((Math.random()*charLim)+1);
-        String newString;
+			    charValue = (int )((Math.random()*charLim)+1); //generate a number of characters for string
+			    String newString = "";
 
-        for(int n = 1; n < charValue; n++) {
-          randValue = (int )(Math.random()*62);
-          newString = newString + alphabet[randValue];
-        }
+			    for(int n = 0; n < charValue; n++) {
+			    	randValue = (int )(Math.random()*alphabet.length); //generates one of the values in the alphabet
+			        newString = newString + alphabet[randValue];
+			    }
 
-        System.out.println(newString);
-        setMap[i].put(newString, charValue);
-
-      }
-    }
+			    setMap[i].put(newString, charValue);
+			}
+		}
   }
   public int[] insert(int[] old,int index, int value) {
        int[] n=old;
