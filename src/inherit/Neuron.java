@@ -25,13 +25,15 @@ public class Neuron extends GNode {
 				}
 			}
 		}
+		double multiplier=1;
 		if(decreaseOthers){
 			for(int i3=0;i2<composition[layer-1];i2++){
 				weight[i3]-=maxmutationincrement;
+				multiplier=2;
 			}
 		}
 		for(int i2=0;i<numberofpropagations;i++){
-			weight[careabout[i2]]+=2*maxmutationincrement;
+			weight[careabout[i2]]+=multiplier*maxmutationincrement;
 			nodegraph[layer-1][careabout[i2]].backpropagate();//TODO multiple threads/processes
 		}
 	}
