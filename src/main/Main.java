@@ -47,6 +47,7 @@ public class Main {
 	public static String usecase="";
 	static double desiredsuccess=0.3;
 	static double maxmutationincrement=.001;
+	static double learningrate=.25;
 	static int mutationsperiteration=500;
 	static int numtimesthrough=50;
 	static int nodesedited=100;
@@ -130,20 +131,15 @@ public class Main {
 				}
 				loss=loss/composition[composition.length-1];
 				//Congrats, we are losers. Let's revel in loss and calculate derivatives for stochastic descent.
-				double numeratorsum1=0;
-				double numeratorsum2=0;
 				for(int layer=0; layer<composition.length; layer++){
 					for(int node2=0; node2<composition[layer]; node2++){
 						for(int it=0;it<nodegraph[layer][node2].weight.length;it++){
-							numeratorsum2+=nodegraph[layer][node2].weight[it];
-							numeratorsum1+=nodegraph[layer][node2].oldweight[it];
+							double derivative=(nodegraph[layer][node2].weight[it]-nodegraph[layer][node2].oldweight[it])/(nextloss-loss);
+							nodegraph[layer][node2].weight[it]-=learningrate*derivative;
 						}
 
 					}
 				}
-				double derivative=(numeratorsum2-numeratorsum1)/(nextloss-loss);//Is this the right derivative?
-				//TODO edit weights accordingly. (the hard part?)
-				loss=nextloss;
 			}
 		}
 	}
