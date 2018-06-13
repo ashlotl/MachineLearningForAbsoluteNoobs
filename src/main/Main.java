@@ -84,7 +84,7 @@ public class Main {
 						nodegraph[layer][node].weight[i]=1;
 					}
 				}
-				nodegraph[layer][node].oldweight=weight;
+				nodegraph[layer][node].oldweight=nodegraph[layer][node].weight;
 			}
 		}
 	}
@@ -94,8 +94,7 @@ public class Main {
 		for(int layer=0;layer<nodegraph.length;layer++) {
 			for(int node=0;node<composition[layer];node++) {
 				f=nodegraph[layer][node].out();
-
-
+			}
 		}
 		return f;
 	}
@@ -103,13 +102,13 @@ public class Main {
 		double loss=0;
 		boolean firsttime=true;
 		for(int set=0;set<trainingMap.length;set++){
-			for(String datapoint:trainingMap.keySet()){
-				int num=trainingMap.get(datapoint);
+			for(String datapoint:trainingMap[set].keySet()){
+				int num=trainingMap[set].get(datapoint);
 				usecase=datapoint;
 				if(firsttime){
 					run();//initial to prepare backprop
 					firsttime=false;
-					for(int node;node<composition[composition.length-1];node++){
+					for(int node=0;node<composition[composition.length-1];node++){
 						if(node!=num){
 							loss+=Math.pow(nodegraph[composition.length-1][node].output,2);
 						} else {
@@ -122,7 +121,7 @@ public class Main {
 				//let's make a new success calculation
 				run();
 				double nextloss=0;
-				for(int node;node<composition[composition.length-1];node++){
+				for(int node=0;node<composition[composition.length-1];node++){
 					if(node!=num){
 						nextloss+=Math.pow(nodegraph[composition.length-1][node].output,2);
 					} else {
@@ -142,7 +141,7 @@ public class Main {
 
 					}
 				}
-				double derivative=(numeratorsum2-numeratorsum1)/(nextloss-loss);
+				double derivative=(numeratorsum2-numeratorsum1)/(nextloss-loss);//Is this the right derivative?
 				//TODO edit weights accordingly. (the hard part?)
 				loss=nextloss;
 			}

@@ -45,7 +45,7 @@ public class Util {
             previous=n[i];
             n[i-1]=previous;
             if(i==index){
-                 n[i]=value
+                 n[i]=value;
                  return n;
             }
        }
@@ -59,13 +59,13 @@ public class Util {
       boolean no=false;
       int omitted=0;
       for(int i=0;i<deletefrom.length;i++){
-           for(int i2=0;i2<indicesfordeletion;i2++){
+           for(int i2=0;i2<indicesfordeletion.length;i2++){
                 if(i==indicesfordeletion[i2]){
                      no=true;
                 }
            }
            if(!no){
-                fin[i-omitted]=deletfrom[i];
+                fin[i-omitted]=deletefrom[i];
                 no=false;
            } else {
                 omitted++;
